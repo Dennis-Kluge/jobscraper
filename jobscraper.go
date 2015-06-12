@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/xml"
-	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"net/http"
 )
@@ -14,16 +13,18 @@ type Rss struct {
 }
 
 type Channel struct {
-	Title       string
-	Link        string
-	Description string
+	XMLName     xml.Name `xml:"channel"`
+	Title       string   `xml:"title"`
+	Link        string   `xml:"link"`
+	Description string   `xml:"description"`
 	Items       []Item
 }
 
 type Item struct {
-	Title       string
-	Link        string
-	Description string
+	XMLName     xml.Name `xml:"item"`
+	Title       string   `xml:"title"`
+	Link        string   `xml:"link"`
+	Description string   `xml:"description"`
 }
 
 func NewRss() Rss {
@@ -49,7 +50,6 @@ func createFeed() (Rss, error) {
 		title := s.Find("h2 a").First().Text()
 		postContent := s.Find(".post-content")
 		postText := postContent.Find("p").First().Text()
-		fmt.Printf("Text: %s \n", postText)
 
 		item := Item{
 			Title:       title,
