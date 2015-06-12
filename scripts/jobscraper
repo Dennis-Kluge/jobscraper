@@ -1,0 +1,13 @@
+case "$1" in
+    start)
+        #Global settings    
+        jobscraper >> /var/log/jobscraper.log 2>&1 &
+        sleep 1
+        ;;
+    stop)
+        sudo pkill -9 -f jobscraper
+        ;;
+    restart)
+        echo "not supported..."
+        ;;
+esac
